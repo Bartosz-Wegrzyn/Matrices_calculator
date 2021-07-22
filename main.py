@@ -9,8 +9,8 @@ def is_square(A):
         return False
 
 
-def is_identity_matrix(A):
-    if is_square(A) == True:
+def is_identity(A):  # Macierz jednostkowa
+    if is_square(A):
         diagonal_index = 0
         for rows in A:
             if rows[diagonal_index] != 1 or sum(rows) > 1:
@@ -27,20 +27,33 @@ def is_identity_matrix(A):
         return False
 
 
-def matrix_transpose(A):
-    return A.transpose()
+def transpose(A):
+    a, b = A.shape
+    out = np.zeros((b, a), dtype=int)
+    for i in range(len(A)):
+
+        for j in range(len(A[0])):
+            out[j][i] = A[i][j]
+    return out
 
 
-def matrix_addition(A, B):
+def addition(A, B):
     if A.shape == B.shape:
         return A + B
     else:
         return f"ShapeError: A: {A.shape} B: {B.shape}"
 
 
-def matrixes_multiplication(A, B):
+def substraction(A, B):
+    if A.shape == B.shape:
+        return A - B
+    else:
+        return f"ShapeError: A: {A.shape} B: {B.shape}"
+
+
+def multiplication(A, B):
     if A.shape[1] == B.shape[0]:
-        return A * B
+        return A @ B
     else:
         return f"ShapeError: A: {A.shape[1]} != {B.shape[0]}"
 
@@ -51,7 +64,7 @@ def drop(M, col, row):
     return M
 
 
-def det(A):
+def det(A):  # Wyznacznik Macierzy
     result = 0
     if A.shape == (1, 1):
         return A[0][0]
@@ -61,43 +74,29 @@ def det(A):
         return result
 
 
-def cofactor(A, col, row):
+def cofactor(A, col, row):  # Dopełnienie Algebraiczne
     return (-1) ** (col + row + 2) * det(drop(A, col, row))
 
 
-# def matrix_trace(A):
-#     pass
-#
-#
-# def matrix_main_minor(A):
-#     pass
-#
-#
-# def matrix_leading_major_minors(A):
-#     pass
-#
-# def matrix_minor(A):
-#     pass
-#
-# def matrix_algebraic_complements(A, n, m):
-#     pass
-#
-#
-# def matrix_algebraic_complement(A):
-#     pass
-#
-#
-# def attached_matrix(A):
-#     pass
-#
-#
-# def matrix_inverse(A):
-#     pass
-#
-#
-# def is_diagonal_matrix():
-#     pass
-#
-#
-# def is_zero_matrix(A):
-#     pass
+def trace(A):
+    out = 0
+    if is_square(A):
+        for i in range(len(A)):
+            out += A[i][i]
+        return out
+
+
+def cofactor_matrix(J):  # maciez_dopelnien_algebraicznych:
+    out = np.zeros(J.shape, dtype=int)
+    for i in range(len(J)):
+        for j in range(len(J)):
+            out[j][i] = cofactor(J, i, j)
+    return out
+
+
+def adjugate_matrix(A):  # Maciez dołączona
+    return transpose(cofactor_matrix(A))
+
+
+def inverse_matrix(A):
+    return adjugate_matrix(A) / det(A)
