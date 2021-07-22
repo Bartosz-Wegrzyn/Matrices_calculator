@@ -1,4 +1,4 @@
-# Matrices_calculator
+# Matrix calculator
 
 This Python library is a basic matrix calculator, made for personal use and my practice. With this library, you can easily perform many basic calculations.
 
