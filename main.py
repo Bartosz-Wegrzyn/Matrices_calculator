@@ -60,6 +60,7 @@ def det(A):
             result += (A[0][i] * ((-1) ** (i + 2)) * det(drop(A, i, 0)))
         return result
 
+def cofactor(A, col, row):
 
 
 # def matrix_trace(A):
