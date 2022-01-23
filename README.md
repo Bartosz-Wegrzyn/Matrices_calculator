@@ -14,7 +14,7 @@ Available methods:
 - drop(A, col, row)
 - det(A)
 - cofactor(A, col, row)
-- trace(A):
+- trace(A)
 - cofactor_matrix(A)
 - adjugate_matrix(A)
 - inverse_matrix(A)
